@@ -62,13 +62,13 @@ export function AuthProvider(props) {
         ...defaultOpts,
         ...opts,
       });
-      const data = await response.json();
 
       if (response.status === 401) {
         logOut();
         throw new Error('Not authorised');
       }
 
+      const data = await response.json();
       if (!response.ok) {
         const errorMessage = (data && data.message)
           ? data.message
