@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect } from 'react';
-import { useHistory } from 'react-router';
+import { useHistory, useLocation } from 'react-router';
 import useStorage from '../hooks/useStorage.js';
 
 const authURL = process.env.REACT_APP_AUTH_URL;
@@ -9,6 +9,7 @@ export const AuthContext = createContext(null);
 
 export function AuthProvider(props) {
   let history = useHistory();
+  const location = useLocation();
   const [token, setToken] = useStorage(localStorage, 'token');
   const [profile, setProfile] = useStorage(localStorage, 'profile');
   const [error, setError] = useState(null);
@@ -34,10 +35,6 @@ export function AuthProvider(props) {
       }
 
       setToken(authResult.token);
-
-      await readProfile();
-
-      history.replace('/news');
     } catch (e) {
       setError(e.message);
     }
@@ -45,7 +42,6 @@ export function AuthProvider(props) {
 
   /** Remove all user access data */
   const logOut = () => {
-    console.log('[Auth] logOut');
     history.replace('/');
     setToken(null);
     setProfile(null);
@@ -99,16 +95,21 @@ export function AuthProvider(props) {
   }
 
   useEffect(() => {
-console.log('[Auth] useEffect');
-
-    if (token) {
-      if (!profile) {
-        readProfile();
+    if (location.pathname === '/') {
+      if (token) {
+        history.replace('/news');
       }
     } else {
-      logOut();
+      if (!token) {
+        logOut();
+        return;
+      }
     }
-  }, [token, profile]);
+
+    if (!profile) {
+      readProfile();
+    }
+  }, [token, location.pathname]);
 
   const auth = {
     token,
@@ -118,8 +119,6 @@ console.log('[Auth] useEffect');
     logOut,
     sendRequest,
   };
-
-console.log('[Auth] history: ', history);
 
   return (
     <AuthContext.Provider value={auth}>

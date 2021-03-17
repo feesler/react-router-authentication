@@ -1,7 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
-function Banner(props) {
+function Banner() {
   return (
     <div className="langing-banner">
       <div className="banner__title">Neto Social</div>
@@ -9,8 +8,5 @@ function Banner(props) {
     </div>
   )
 }
-
-Banner.propTypes = {
-};
 
 export default Banner;

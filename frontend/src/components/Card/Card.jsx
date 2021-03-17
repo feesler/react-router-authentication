@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 function Card(props) {
   const image = (props.image)
-    ? <img src={props.image} className="card-img-top" />
+    ? <img src={props.image} className="card-img-top" alt={props.title}/>
     : null;
 
   const title = (props.title)

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import classNames from 'classnames'
+import classNames from 'classnames';
 import useAuth from '../../hooks/useAuth.js';
 
 const initialState = {
@@ -14,7 +13,7 @@ const initialValidation = {
   password: true,
 };
 
-function LoginForm(props) {
+function LoginForm() {
   const [state, setState] = useState(initialState);
   const [validation, setValidation] = useState(initialValidation);
   const { profile, error, logIn } = useAuth();
@@ -86,8 +85,5 @@ function LoginForm(props) {
     </div>
   )
 }
-
-LoginForm.propTypes = {
-};
 
 export default LoginForm;
