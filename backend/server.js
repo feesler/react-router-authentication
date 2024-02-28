@@ -85,7 +85,7 @@ router.get('/private/me', async (ctx, next) => {
     ctx.response.body = { id: user.id, login: user.login, name: user.name, avatar: user.avatar };
 });
 router.get('/private/news', async (ctx, next) => {
-    ctx.response.body = news; 
+    ctx.response.body = news;
 });
 router.get('/private/news/:id', async (ctx, next) => {
     const [item] = news.filter(o => o.id === ctx.params.id);
@@ -94,7 +94,7 @@ router.get('/private/news/:id', async (ctx, next) => {
         ctx.response.body = { message: 'not found' };
         return;
     }
-    ctx.response.body = item; 
+    ctx.response.body = item;
 });
 
 app.use(router.routes())

@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect } from 'react';
-import { useHistory, useLocation } from 'react-router';
+import { useNavigate, useLocation } from 'react-router';
 import useStorage from '../hooks/useStorage.js';
 
 const authURL = process.env.REACT_APP_AUTH_URL;
@@ -8,7 +8,7 @@ const profileURL = process.env.REACT_APP_PROFILE_URL;
 export const AuthContext = createContext(null);
 
 export function AuthProvider(props) {
-  let history = useHistory();
+  let navigate = useNavigate();
   const location = useLocation();
   const [token, setToken] = useStorage(localStorage, 'token');
   const [profile, setProfile] = useStorage(localStorage, 'profile');
@@ -38,14 +38,14 @@ export function AuthProvider(props) {
     } catch (e) {
       setError(e.message);
     }
-  }
+  };
 
   /** Remove all user access data */
   const logOut = () => {
-    history.replace('/');
+    navigate.replace('/');
     setToken(null);
     setProfile(null);
-  }
+  };
 
   /* Send request with authorisation token */
   const sendRequest = async (url, opts = {}) => {
@@ -81,7 +81,7 @@ export function AuthProvider(props) {
     } catch (e) {
       return { error: e.message };
     }
-  }
+  };
 
   /** Request user profile data */
   const readProfile = async () => {
@@ -92,12 +92,12 @@ export function AuthProvider(props) {
     }
 
     setProfile(result.data);
-  }
+  };
 
   useEffect(() => {
     if (location.pathname === '/') {
       if (token) {
-        history.replace('/news');
+        navigate.replace('/news');
       }
     } else {
       if (!token) {
