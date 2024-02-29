@@ -2,7 +2,7 @@ const http = require('http');
 const Koa = require('koa');
 const Router = require('koa-router');
 const cors = require('koa2-cors');
-const koaBody = require('koa-body');
+const { koaBody } = require('koa-body');
 const passport = require('koa-passport');
 const { Strategy } = require('passport-http-bearer');
 const uuid = require('uuid');
@@ -79,7 +79,7 @@ router.post('/auth', async (ctx, next) => {
     ctx.response.body = { token };
 });
 
-router.use('/private**', bearerAuth);
+router.use('/private', bearerAuth);
 router.get('/private/me', async (ctx, next) => {
     const { user } = ctx.state;
     ctx.response.body = { id: user.id, login: user.login, name: user.name, avatar: user.avatar };
@@ -97,7 +97,7 @@ router.get('/private/news/:id', async (ctx, next) => {
     ctx.response.body = item;
 });
 
-app.use(router.routes())
+app.use(router.routes());
 app.use(router.allowedMethods());
 
 const port = process.env.PORT || 7070;
