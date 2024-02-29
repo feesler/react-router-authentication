@@ -9,10 +9,10 @@ function Content() {
   return (
     <div className="content">
       <Routes>
-        <Route path="/" exact component={Banner} />
-        <Route path="/news/:id" component={Article} />
-        <Route path="/news" component={NewsList} />
-        <Route component={Page404} />
+        <Route path="/" Component={Banner} />
+        <Route path="/news/:id" Component={Article} />
+        <Route path="/news" Component={NewsList} />
+        <Route Component={Page404} />
       </Routes>
     </div>
   )

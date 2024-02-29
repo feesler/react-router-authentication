@@ -8,8 +8,8 @@ function Header() {
     <div className="header">
       <div className="header__logo me-4">Neto Social</div>
       <Routes>
-        <Route path="/" exact component={LoginForm} />
-        <Route component={UserProfile} />
+        <Route path="/" Component={LoginForm} />
+        <Route path="/*" Component={UserProfile} />
       </Routes>
     </div>
   )

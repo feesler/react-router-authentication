@@ -8,7 +8,7 @@ const profileURL = process.env.REACT_APP_PROFILE_URL;
 export const AuthContext = createContext(null);
 
 export function AuthProvider(props) {
-  let navigate = useNavigate();
+  const navigate = useNavigate();
   const location = useLocation();
   const [token, setToken] = useStorage(localStorage, 'token');
   const [profile, setProfile] = useStorage(localStorage, 'profile');
@@ -42,7 +42,7 @@ export function AuthProvider(props) {
 
   /** Remove all user access data */
   const logOut = () => {
-    navigate.replace('/');
+    navigate('/');
     setToken(null);
     setProfile(null);
   };
@@ -97,7 +97,7 @@ export function AuthProvider(props) {
   useEffect(() => {
     if (location.pathname === '/') {
       if (token) {
-        navigate.replace('/news');
+        navigate('/news');
       }
     } else {
       if (!token) {
